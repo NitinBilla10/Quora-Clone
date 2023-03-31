@@ -5,10 +5,10 @@ function Content() {
   return (
          <>
         <div className='feed'>
-        <span class="material-symbols-outlined">
+        <div className='avatar'><p><span class="material-symbols-outlined">
          account_circle
-         </span> <p><strong>User Name</strong><br/>
-         <small>Timestamp</small></p>
+         </span> <strong>User Name</strong><br/>
+         <small>Timestamp</small></p></div>
          
          <div className='leftfeed'>
          <div className='questioncontainer'>
@@ -30,14 +30,13 @@ function Content() {
         <label class="btn btn-outline-primary" for="btn-check-outlined2"><span class="material-symbols-outlined">
         arrow_downward
         </span></label>
-        <input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off"/>
-           <label class="btn btn-outline-primary" for="btn-check-outlined2"><span class="material-symbols-outlined">
+        <button type="button" class="btn btn-primary-outlined"><span class="material-symbols-outlined">
            autorenew
-        </span></label>
-        <input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off"/>
-           <label class="btn btn-outline-primary" for="btn-check-outlined2"><span class="material-symbols-outlined">
+        </span></button>
+        <button type="button" class="btn btn-primary-outlined"><span class="material-symbols-outlined">
            chat
-        </span></label>
+        </span></button>
+        <p id='numberofanswers'>1 Answers</p>
         </div>
         <div className='rightfeed'>
             <a href='/'><span class="material-symbols-outlined">
@@ -49,13 +48,14 @@ function Content() {
               </span>
              </a>
         </div>
+        <div className='clear'></div>
        </div>
-       <div className='clear'></div>
+       
        <div className='answerfeed'>
-       <span class="material-symbols-outlined">
+       <p><span class="material-symbols-outlined">
          account_circle
-         </span><p>User_Name<br/><span>Timestamp</span></p>
-         <p id='feedanswer'>This is Answer</p>
+         </span>User_Name<br/><span>Timestamp</span></p>
+         <p id='feedanswer'><strong>This is Answer</strong></p>
         </div>
        </div>
         </>
