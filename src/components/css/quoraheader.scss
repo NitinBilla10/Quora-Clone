@@ -28,16 +28,17 @@
     a{
         padding: 0;
     }
+    .material-symbols-outlined {
+        font-size: 30px;
+        color: #bdbdbd;
+    
+    }
+    .material-symbols-outlined:hover{
+        color: black;
+    
+    }
 }
-.material-symbols-outlined {
-    font-size: 30px;
-    color: #bdbdbd;
 
-}
-.material-symbols-outlined:hover{
-    color: black;
-
-}
 
 
 .headerlogo img{
@@ -74,7 +75,7 @@
     .material-symbols-outlined{
         font-size: 20px;
         position: relative;
-        top: 3px;
+        top: 4px;
     }
     
     

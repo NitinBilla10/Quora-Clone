@@ -9,7 +9,7 @@ function Feed() {
       <div className='contentwriting'>
         <Postbox/>
         </div>
-        <div className='content'>
+        <div className='feedpost'>
           <Content/>
           </div>
       

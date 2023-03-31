@@ -1,0 +1,27 @@
+
+.clear{
+    clear: both;
+}
+
+
+
+.feed{
+    padding: 10px;
+    background-color: #ffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 30px 0 rgba(64, 100, 126, 0.15);
+    margin-top: 10px;
+    label{
+        color: #41b3cf;
+    }
+    .leftfeed{
+        float: left;
+    }
+    .rightfeed{
+        float: right;
+    }
+    .answerfeed{
+        border-top: 2px solid #41b3cf;
+        margin-top: 20px;
+    }
+}

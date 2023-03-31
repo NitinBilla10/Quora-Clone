@@ -58,7 +58,7 @@ function Quoraheader() {
            </span></a>
         </li></div>
         <div><li className="nav-item">
-        <button type="button" class="btn btn-outline-secondary">
+        <button type="button" class="btn btn-outline-primary">
       <span class="material-symbols-outlined">
           add
       </span> 

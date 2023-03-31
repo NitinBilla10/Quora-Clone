@@ -1,0 +1,24 @@
+.clear {
+  clear: both;
+}
+
+.feed {
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 30px 0 rgba(64, 100, 126, 0.15);
+  margin-top: 10px;
+}
+.feed label {
+  color: #41b3cf;
+}
+.feed .leftfeed {
+  float: left;
+}
+.feed .rightfeed {
+  float: right;
+}
+.feed .answerfeed {
+  border-top: 2px solid #41b3cf;
+  margin-top: 20px;
+}/*# sourceMappingURL=content.css.map */

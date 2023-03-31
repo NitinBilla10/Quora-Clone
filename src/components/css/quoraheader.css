@@ -34,13 +34,11 @@
 .nav-item a {
   padding: 0;
 }
-
-.material-symbols-outlined {
+.nav-item .material-symbols-outlined {
   font-size: 30px;
   color: #bdbdbd;
 }
-
-.material-symbols-outlined:hover {
+.nav-item .material-symbols-outlined:hover {
   color: black;
 }
 
@@ -79,5 +77,5 @@
 .menu button .material-symbols-outlined {
   font-size: 20px;
   position: relative;
-  top: 3px;
+  top: 4px;
 }/*# sourceMappingURL=quoraheader.css.map */
