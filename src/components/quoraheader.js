@@ -1,11 +1,15 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import './css/quoraheader.css';
 
 
 
+
 function Quoraheader() {
+  const[headermodallink,Setheadermodallink]=useState("");
+  const[updatedheadermodallink,Setupdatedheadermodallink]=useState('');
   return (
+    
     <>
     <div className='header'>
     <div className='container'>
@@ -44,7 +48,7 @@ function Quoraheader() {
         </li></div>
         <div><li className="nav-item">
           <a className="nav-link" href='/'><span class="material-symbols-outlined">
-       assignment_turned_in
+          assignment_turned_in
          </span></a>
         </li></div>
         <div><li className="nav-item">
@@ -58,7 +62,7 @@ function Quoraheader() {
            </span></a>
         </li></div>
         <div><li className="nav-item">
-        <button type="button" class="btn btn-outline-primary">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-primary">
       <span class="material-symbols-outlined">
           add
       </span> 
@@ -79,7 +83,36 @@ function Quoraheader() {
 </nav>
 </div>
  </div>
+ 
+ <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Question</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div className='avatar'></div>
+      <input type="email" class="form-control" id="headermodalquestion"  placeholder="Start Your Question With 'How', 'What','Why',etc ?"/>
+      <input type="email" class="form-control" id="headermodallink" value={ headermodallink}
+                 onChange={  (event) => {
+                     Setheadermodallink(event.target.value);
+                 }}
+                 onKeyDown={(e)=>{if(e.key==='Enter'){Setupdatedheadermodallink(headermodallink);}}}
+       placeholder="Optional :Add Link For Context"/>
+      <div>{updatedheadermodallink!==""&&<img src={updatedheadermodallink} alt=''/>}</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Add Question</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
  </div>
+   
     </>
       
   )

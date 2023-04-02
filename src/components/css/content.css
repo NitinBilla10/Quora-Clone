@@ -45,4 +45,13 @@
 }
 .feed .answerfeed .material-symbols-outlined {
   font-size: 40px;
+}
+.feed .modal-dialog {
+  min-width: 400px;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}
+.feed .modal-dialog .modal-content .modal-header {
+  display: block;
+  text-align: center;
 }/*# sourceMappingURL=content.css.map */

@@ -1,7 +1,10 @@
-import React from 'react'
+
+import React, { useRef } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
 import './css/content.css'
 
 function Content() {
+   const editorRef = useRef(null);
   return (
          <>
         <div className='feed'>
@@ -15,7 +18,7 @@ function Content() {
             <p id='feedquestion'>This is Question ?</p>
             </div></div>
             <div className='rightfeed'>
-            <button type="button" class="btn btn-outline-primary">Answer</button>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contentmodal">Answer</button>
         </div>
         <div className='clear'></div>
         
@@ -57,7 +60,46 @@ function Content() {
          </span>User_Name<br/><span>Timestamp</span></p>
          <p id='feedanswer'><strong>This is Answer</strong></p>
         </div>
+        
+        <div class="modal fade" id="contentmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content">
+       <div class="modal-header">
+        <h5 class="modal-title">This Is Question</h5>
+        <p>is asked by <span>User_Name</span> on <small>Timestamp</small></p>
+        
        </div>
+       <div class="modal-body">
+       <Editor
+        apiKey='88t10moj4univfqtqwyov2vck22tgiq0i3ly2h4qwfl0x10u'
+        onInit={(evt, editor) => editorRef.current = editor}
+        initialValue="<p>This is the initial content of the editor.</p>"
+        init={{
+          height: 400,
+          menubar: false,
+          plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+          ],
+          toolbar: 'undo redo | blocks | ' +
+            'bold italic forecolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        }}
+       />
+       </div>
+       <div class="modal-footer">
+       <button type="button" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        
+       </div>
+       </div>
+       </div>
+     </div>
+       </div>
+
         </>
   )
 }
