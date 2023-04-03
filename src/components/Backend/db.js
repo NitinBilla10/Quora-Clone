@@ -1,7 +1,6 @@
 
 
-const mongoose = require('mongoose')
-const url = "mongodb+srv://admin:admin@cluster0.bufl8pk.mongodb.net/?retryWrites=true&w=majority"
+const mongoose=require('mongoose') 
 
 
 module.exports.connect = ()=>{
