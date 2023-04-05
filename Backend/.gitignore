@@ -1,2 +1,8 @@
 /node_modules
+<<<<<<< HEAD:Backend/.gitignore
 db.js
+=======
+/db.js
+.db.js
+./db.js
+>>>>>>> 0a0d916d8c32d650cc4a29585ed3d68096975f8d:src/components/Backend/.gitignore
