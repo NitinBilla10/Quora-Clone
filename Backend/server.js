@@ -1,11 +1,13 @@
 const express = require('express')
 const app = express();
-const bodyParser = require('body-parser')
-const path = require('path')
-const PORT = 3000;
+const bodyParser = require('body-parser');
 const cors = require('cors')
+const path = require('path');
+const PORT = 3000;
+
 const db = require('./db')
 const router = require('./routes')
+
 
 
 
@@ -29,14 +31,14 @@ app.use(( req, res, next) =>{
 //Routes
 app.use("/api", router)
 
+const buildpath =path.join(__dirname,"..","frontend","build");
+// app.use('/uploads', express.static(path.join(__dirname, "/../uploads")))
+ app.use( express.static(buildpath))
 
-app.use('/uploads', express.static(path.join(__dirname, "/../uploads")))
-app.use('/uploads', express.static(path.join(__dirname, "/../forntend/build")))
-
-app.get("*",(req,res)=>
+app.get("*", async (req,res)=>
 {
-    try{
-         res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`))
+     try{
+        res.sendFile(path.join(buildpath, 'index.html'));
     }catch(e){
         res.send("Unexpected Error !!!")
         res.send(console.log(e))
@@ -45,8 +47,8 @@ app.get("*",(req,res)=>
 
 )
 
-app.use(cors())
 
+app.use(cors())
 
 app.listen(process.env.PORT || PORT , ()=>{
     console.log(`Listening at Port: ${PORT}`)
