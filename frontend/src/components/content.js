@@ -1,21 +1,34 @@
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import './css/content.css'
+import ReactTimeAgo from 'react-time-ago';
+import axios from 'axios';
 
-function Content() {
-   const editorRef = useRef(null);
+function LastSeen({ date }) {
+  return (
+    <div>
+      <ReactTimeAgo date={date} locale="en-US" timeStyle="round"/>
+    </div>
+  )
+}
+
+function Content({post}) {
+  const editorRef = useRef(null);
+ 
+
+ 
   return (
          <>
         <div className='feed'>
         <div className='avatar'><p><span class="material-symbols-outlined">
          account_circle
          </span> <strong>User Name</strong><br/>
-         <small>Timestamp</small></p></div>
+         <small><LastSeen date={post?.createdAt} locale="en-US" /></small></p></div>
          
          <div className='leftfeed'>
          <div className='questioncontainer'>
-            <p id='feedquestion'>This is Question ?</p>
+            <p id='feedquestion'>{post?.questionName}</p>
             </div></div>
             <div className='rightfeed'>
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contentmodal">Answer</button>
@@ -39,7 +52,7 @@ function Content() {
         <button type="button" class="btn btn-primary-outlined"><span class="material-symbols-outlined">
            chat
         </span></button>
-        <p id='numberofanswers'>1 Answers</p>
+        <p id='numberofanswers'>Answers</p>
         </div>
         <div className='rightfeed'>
             <a href='/'><span class="material-symbols-outlined">
@@ -66,7 +79,7 @@ function Content() {
        <div class="modal-content">
        <div class="modal-header">
         <h5 class="modal-title">This Is Question</h5>
-        <p>is asked by <span>User_Name</span> on <small>Timestamp</small></p>
+        <p>is asked by <span>User_Name</span> on <small>{new Date(post?.createdAt).toLocaleString()}</small></p>
         
        </div>
        <div class="modal-body">

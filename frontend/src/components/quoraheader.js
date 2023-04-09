@@ -25,8 +25,12 @@ function Quoraheader() {
     questionUrl: updatequestionurl
     }
   await axios.post("/api/questions",body,config).then((res)=>{
+    alert(res.data.message)
     console.log(res.data);
+    
+
   }).catch((e)=>{
+    alert("Question Can't be add")
     console.log(e);
   })
  } }
@@ -130,7 +134,7 @@ function Quoraheader() {
       <div>{updatequestionurl!==""&&<img src={updatequestionurl} alt=''/>}</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" onClick={postquestion} >Add Question</button>
+        <button type="button" class="btn btn-primary" onClick={postquestion} id='addquestionbtn'>Add Question</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         
       </div>
