@@ -1,13 +1,39 @@
 
 import React, { useState } from 'react'
 import './css/quoraheader.css';
+import axios from 'axios';
 
 
 
 
 function Quoraheader() {
-  const[headermodallink,Setheadermodallink]=useState("");
-  const[updatedheadermodallink,Setupdatedheadermodallink]=useState('');
+ 
+  const[question,setquestion]=useState('');
+  const[questionurl,setquestionurl]=useState('');
+  const[updatequestionurl,Setupdatequestionurl]=useState('');
+  
+    
+ const postquestion = async ()=>{
+  if(question!==""){
+    const config = {
+      header:{
+        "Content-Type":"application/json"
+      }
+    }
+    const body={
+    questionName: question,
+    questionUrl: updatequestionurl
+    }
+  await axios.post("/api/questions",body,config).then((res)=>{
+    console.log(res.data);
+  }).catch((e)=>{
+    console.log(e);
+  })
+ } }
+
+ 
+
+
   return (
     
     <>
@@ -93,17 +119,18 @@ function Quoraheader() {
       </div>
       <div class="modal-body">
         <div className='avatar'></div>
-      <input type="email" class="form-control" id="headermodalquestion"  placeholder="Start Your Question With 'How', 'What','Why',etc ?"/>
-      <input type="email" class="form-control" id="headermodallink" value={ headermodallink}
+      <input type="text" class="form-control" id="headermodalquestion"  placeholder="Start Your Question With 'How', 'What','Why',etc ?" 
+      value={question} onChange={(e)=>{setquestion(e.target.value);}}/>
+      <input type="text" class="form-control" id="headermodallink" value={questionurl}
                  onChange={  (event) => {
-                     Setheadermodallink(event.target.value);
+                     setquestionurl(event.target.value);
                  }}
-                 onKeyDown={(e)=>{if(e.key==='Enter'){Setupdatedheadermodallink(headermodallink);}}}
+                 onKeyDown={(e)=>{if(e.key==='Enter'){Setupdatequestionurl(questionurl);}}}
        placeholder="Optional :Add Link For Context"/>
-      <div>{updatedheadermodallink!==""&&<img src={updatedheadermodallink} alt=''/>}</div>
+      <div>{updatequestionurl!==""&&<img src={updatequestionurl} alt=''/>}</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Add Question</button>
+        <button type="button" class="btn btn-primary" onClick={postquestion} >Add Question</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         
       </div>

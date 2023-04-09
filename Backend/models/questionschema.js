@@ -10,8 +10,8 @@ const questionschema = new mongoose.Schema({
     },
     answers: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Answers"
+        ref: "answers"
     }
 
 })
-module.exports = mongoose.model("question", questionschema)
+module.exports = mongoose.model("questions", questionschema)

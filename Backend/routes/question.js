@@ -29,5 +29,34 @@ router.post('/', async (req,res) =>{
     })
    }
 })
+
+router.get('/',async (req,res)=>{
+try{
+    await questionDB.aggregate([
+        {
+            $lookup: {
+                from:'answers',
+                localField:'_id',
+                foreignField:'questionId',
+                as:"allAnswers"
+            }
+        }
+     ]).exec().then((doc)=>{
+        res.status(200).send(doc)
+    }).catch((err)=>
+    {res.status(500).send({
+        status:false,
+        message:"unable to get question"})
+    })
+} catch{
+    res.status(500).send({
+        status:false,
+        message:"Unknown error in getting question"
+    })
+}
+})
+
+
+
 module.exports = router
 
