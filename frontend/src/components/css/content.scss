@@ -17,6 +17,11 @@
         }
         
     }
+    .questioncontainer{
+        img{width: auto;
+            height: 300px;
+        }
+    }
     button{
         .material-symbols-outlined{
             color: #41b3cf;
@@ -54,5 +59,10 @@
         .material-symbols-outlined{
             font-size: 40px;
         }
+        
+    }
+    .modal-header{
+        display: block;
+        flex-direction: column
     }
 }

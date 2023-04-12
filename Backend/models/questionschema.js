@@ -8,10 +8,10 @@ const questionschema = new mongoose.Schema({
         default: Date.now()
 
     },
-    answers: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "answers"
+    allAnswers:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: "question"
     }
-
+    
 })
-module.exports = mongoose.model("questions", questionschema)
+module.exports = mongoose.model("question", questionschema)

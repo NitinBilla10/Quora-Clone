@@ -1,9 +1,11 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, {  useRef, useState} from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import './css/content.css'
-import ReactTimeAgo from 'react-time-ago';
 import axios from 'axios';
+import ReactTimeAgo from 'react-time-ago';
+import ReactHtmlparser from 'html-react-parser';
+
 
 function LastSeen({ date }) {
   return (
@@ -14,11 +16,37 @@ function LastSeen({ date }) {
 }
 
 function Content({post}) {
-  const editorRef = useRef(null);
- 
+  const editorRef = useRef();
+  const[postid,setpostid]=useState('');
+        
+  const submitanswer= async ()=>{
+    
+    if(editorRef.current.getContent()!==""){
+      const config = {
+        Headers:{
+          "Content-Type":"application/json"
+        }
+      }
+      
+      const body={
+      answer: editorRef.current.getContent() ,
+      questionId: postid,
+      createdAt:Date.now()
+
+      }
+    await axios.post("/api/answers",body,config).then((res)=>{
+      console.log(res.data);
+    }).catch((e)=>{
+      alert("Question Can't be add")
+      console.log(e);
+    })
+   } 
+    
+  }
 
  
   return (
+    
          <>
         <div className='feed'>
         <div className='avatar'><p><span class="material-symbols-outlined">
@@ -29,6 +57,7 @@ function Content({post}) {
          <div className='leftfeed'>
          <div className='questioncontainer'>
             <p id='feedquestion'>{post?.questionName}</p>
+            <img src={post?.questionUrl}/>
             </div></div>
             <div className='rightfeed'>
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contentmodal">Answer</button>
@@ -52,7 +81,7 @@ function Content({post}) {
         <button type="button" class="btn btn-primary-outlined"><span class="material-symbols-outlined">
            chat
         </span></button>
-        <p id='numberofanswers'>Answers</p>
+        <p id='numberofanswers'>{post?.allAnswers.length}  Answers</p>
         </div>
         <div className='rightfeed'>
             <a href='/'><span class="material-symbols-outlined">
@@ -66,13 +95,15 @@ function Content({post}) {
         </div>
         <div className='clear'></div>
        </div>
-       
+       {
+        post?.allAnswers?.map((_a)=>(
        <div className='answerfeed'>
        <p><span class="material-symbols-outlined">
          account_circle
-         </span>User_Name<br/><span>Timestamp</span></p>
-         <p id='feedanswer'><strong>This is Answer</strong></p>
+         </span>User_Name<br/><span><LastSeen date={_a?.createdAt} locale="en-US" /></span></p>
+         <div id='feedanswer'>{ReactHtmlparser(_a?.answer)}</div>
         </div>
+        ))}
         
         <div class="modal fade" id="contentmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
        <div class="modal-dialog modal-dialog-centered">
@@ -86,7 +117,7 @@ function Content({post}) {
        <Editor
         apiKey='88t10moj4univfqtqwyov2vck22tgiq0i3ly2h4qwfl0x10u'
         onInit={(evt, editor) => editorRef.current = editor}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        
         init={{
           height: 400,
           menubar: false,
@@ -101,10 +132,13 @@ function Content({post}) {
             'removeformat | help',
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         }}
+        
+        setan
        />
        </div>
+       
        <div class="modal-footer">
-       <button type="button" class="btn btn-primary">Submit</button>
+       <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id='submitanswerbtn'  onClick={submitanswer}>Submit</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         
        </div>
