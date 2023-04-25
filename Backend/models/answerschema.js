@@ -4,7 +4,7 @@ const answerschema = new mongoose.Schema({
     answer: String,
     questionId: {
         type:mongoose.Schema.Types.ObjectId,
-        ref: "question"
+        ref: "questions"
     },
     createdAt: {
         type: Date,
@@ -14,4 +14,4 @@ const answerschema = new mongoose.Schema({
     
 
 })
-module.exports = mongoose.model("answer", answerschema)
+module.exports = mongoose.model("answers", answerschema)

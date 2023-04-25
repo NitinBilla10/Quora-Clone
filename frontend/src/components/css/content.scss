@@ -61,8 +61,36 @@
         }
         
     }
-    .modal-header{
-        display: block;
-        flex-direction: column
+    
+}
+.modal_wrapper{
+    overflow-y:hidden ;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(189,189,189,0.8);
+    .modal_container{
+        width: 600px;
+        padding: 10px;
+        background-color: #ffff;
+        border-radius: 10px;
+        position: fixed;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        overflow: hidden;
+        .title{
+         margin-bottom: 15px;
+        }
+        .modal_footer{
+            margin-top: 15px;
+        }
+        button{
+            margin: 0 10px;
+            text-align: center;
+            padding: 5px 10px;
+        }
     }
 }

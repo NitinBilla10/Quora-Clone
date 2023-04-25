@@ -21,7 +21,7 @@ function Feed() {
         <Postbox/>
         </div>
         <div className='feedpost'>
-          { posts.map((post,index)=>(<Content key={index} post={post}/>))
+          { posts.map((post,index)=>(<Content key={post?._id} post={post}/>))
           }
           </div>
       

@@ -15,12 +15,12 @@ function LastSeen({ date }) {
   )
 }
 
-function Content({post}) {
+function Content({post}){
   const editorRef = useRef();
-  const[postid,setpostid]=useState('');
-        
-  const submitanswer= async ()=>{
-    
+  const [modal,setmodal] =useState(false);
+ 
+ async function submitanswer(postid){
+  // setpostid(post?._id)
     if(editorRef.current.getContent()!==""){
       const config = {
         Headers:{
@@ -34,10 +34,11 @@ function Content({post}) {
       createdAt:Date.now()
 
       }
+      console.log(post?._id)
     await axios.post("/api/answers",body,config).then((res)=>{
       console.log(res.data);
     }).catch((e)=>{
-      alert("Question Can't be add")
+      alert("Answer Can't be add")
       console.log(e);
     })
    } 
@@ -46,8 +47,7 @@ function Content({post}) {
 
  
   return (
-    
-         <>
+          
         <div className='feed'>
         <div className='avatar'><p><span class="material-symbols-outlined">
          account_circle
@@ -57,10 +57,10 @@ function Content({post}) {
          <div className='leftfeed'>
          <div className='questioncontainer'>
             <p id='feedquestion'>{post?.questionName}</p>
-            <img src={post?.questionUrl}/>
+            <img src={post?.questionUrl} alt=''/>
             </div></div>
             <div className='rightfeed'>
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contentmodal">Answer</button>
+            <button type="button" class="btn btn-outline-primary" onClick={()=>setmodal(true)}>Answer</button>
         </div>
         <div className='clear'></div>
         
@@ -97,27 +97,25 @@ function Content({post}) {
        </div>
        {
         post?.allAnswers?.map((_a)=>(
+          <>
        <div className='answerfeed'>
        <p><span class="material-symbols-outlined">
          account_circle
          </span>User_Name<br/><span><LastSeen date={_a?.createdAt} locale="en-US" /></span></p>
          <div id='feedanswer'>{ReactHtmlparser(_a?.answer)}</div>
-        </div>
-        ))}
-        
-        <div class="modal fade" id="contentmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-       <div class="modal-dialog modal-dialog-centered">
-       <div class="modal-content">
-       <div class="modal-header">
-        <h5 class="modal-title">This Is Question</h5>
-        <p>is asked by <span>User_Name</span> on <small>{new Date(post?.createdAt).toLocaleString()}</small></p>
-        
-       </div>
-       <div class="modal-body">
+         </div></>))}
+       
+        {
+        modal && 
+        <div className='modal_wrapper'>
+        <div className='modal_container'>
+          <div className='title' >
+            <h3>{post?._id}</h3>
+          </div>
+          <div className="modal_content">
        <Editor
         apiKey='88t10moj4univfqtqwyov2vck22tgiq0i3ly2h4qwfl0x10u'
         onInit={(evt, editor) => editorRef.current = editor}
-        
         init={{
           height: 400,
           menubar: false,
@@ -136,18 +134,16 @@ function Content({post}) {
         setan
        />
        </div>
+       <div class="modal_footer">
+    <button type="button" class="btn btn-primary"     onClick={()=>submitanswer(post?._id)}>Submit</button>
+        <button type="button" class="btn btn-secondary" onClick={()=>setmodal(false)}>Cancel</button>
+        </div>
+       </div></div>}
+       </div>
        
-       <div class="modal-footer">
-       <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id='submitanswerbtn'  onClick={submitanswer}>Submit</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        
-       </div>
-       </div>
-       </div>
-     </div>
-       </div>
-
-        </>
+     
+       
+    
   )
 }
 
