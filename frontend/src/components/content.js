@@ -1,5 +1,5 @@
 
-import React, {  useRef, useState} from 'react';
+import React, {  useEffect, useRef, useState} from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import './css/content.css'
 import axios from 'axios';
@@ -18,6 +18,12 @@ function LastSeen({ date }) {
 function Content({post}){
   const editorRef = useRef();
   const [modal,setmodal] =useState(false);
+  useEffect(()=>{if(modal===true){
+    
+      document.body.style.overflowY="hidden";
+      return()=>{document.body.style.overflowY="scroll";}
+    
+  }})
  
  async function submitanswer(postid){
   // setpostid(post?._id)
@@ -37,6 +43,7 @@ function Content({post}){
       console.log(post?._id)
     await axios.post("/api/answers",body,config).then((res)=>{
       console.log(res.data);
+      setmodal(!modal)
     }).catch((e)=>{
       alert("Answer Can't be add")
       console.log(e);
@@ -44,7 +51,10 @@ function Content({post}){
    } 
     
   }
-
+const closemodal = ()=>{
+  setmodal(!modal)
+ 
+}
  
   return (
           
@@ -60,7 +70,7 @@ function Content({post}){
             <img src={post?.questionUrl} alt=''/>
             </div></div>
             <div className='rightfeed'>
-            <button type="button" class="btn btn-outline-primary" onClick={()=>setmodal(true)}>Answer</button>
+            <button type="button" class="btn btn-outline-primary" onClick={closemodal}>Answer</button>
         </div>
         <div className='clear'></div>
         
@@ -136,7 +146,7 @@ function Content({post}){
        </div>
        <div class="modal_footer">
     <button type="button" class="btn btn-primary"     onClick={()=>submitanswer(post?._id)}>Submit</button>
-        <button type="button" class="btn btn-secondary" onClick={()=>setmodal(false)}>Cancel</button>
+        <button type="button" class="btn btn-secondary" onClick={closemodal}>Cancel</button>
         </div>
        </div></div>}
        </div>

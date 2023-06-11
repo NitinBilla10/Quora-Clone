@@ -1,7 +1,7 @@
-.list-group .list-group-item {
-  position: fixed;
+.list-group-flush .list-group-item {
+  position: inherit;
 }
-.list-group img {
+.list-group-flush img {
   height: 40px;
   width: auto;
   border-radius: 50%;

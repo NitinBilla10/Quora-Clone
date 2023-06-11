@@ -1,5 +1,6 @@
-.list-group{
-    .list-group-item{position: fixed;}
+.list-group-flush{
+    .list-group-item
+    {position: inherit;}
     img{
         height: 40px;
         width: auto;
