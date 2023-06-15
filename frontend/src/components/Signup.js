@@ -2,20 +2,24 @@ import React from 'react'
 import "./css/signup.css"
 import GoogleButton from 'react-google-button'
 import { useState } from 'react'
+import { updateProfile } from 'firebase/auth'
 import {useUserAuth} from './context/userAuthContext'
 import { Alert } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
 function Signup() {
+  
+  const [username,setUsername]=useState('');
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState('');
   const [error,setError]=useState('');
-  const {signup} = useUserAuth();
+  const {signup,googlesignin} = useUserAuth();
   const navigate = useNavigate();
   const handlesubmit = async(e)=>{
     e.preventDefault();
     try{
      await signup(email,password);
+     
      console.log('user successfully created');
      setError('');
      navigate('/');
@@ -24,6 +28,17 @@ function Signup() {
       setError(err.message);
     }
 
+  }
+  const handlegooglesignin = async(e)=>{
+    e.preventDefault();
+    try{
+     await googlesignin();
+     console.log('user successfully created');
+     setError('');
+     navigate('/home');
+    }catch(err){
+      setError(err.message);
+    }
   }
    
   return (
@@ -34,7 +49,7 @@ function Signup() {
         <h5 class="card-title">Sign Up</h5>
         {error && <Alert variant='danger'>{error}</Alert>}
         <div class="form-floating">
-       <input type="text" class="form-control" id="username" placeholder="Username" />
+       <input type="text" class="form-control" id="username" placeholder="Username" onChange={(e)=>setUsername(e.target.value)} />
        <label for="username">Username</label>
        </div>
         <div class="form-floating mb-3">
@@ -47,7 +62,7 @@ function Signup() {
        </div>
        <button type="submit" onClick={handlesubmit} class="btn btn-primary">Sign Up</button>
        <h5 class="card-title">OR</h5>
-       <GoogleButton style={{width:"367px"}}/>
+       <GoogleButton style={{width:"367px"}} onClick={handlegooglesignin}/>
       </div>
     </div>
     </div>

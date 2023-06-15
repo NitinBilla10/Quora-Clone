@@ -10,7 +10,7 @@ function Login() {
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState('');
   const [error,setError]=useState('');
-  const {login} = useUserAuth();
+  const {login,googlesignin} = useUserAuth();
   const navigate = useNavigate();
   const handlesubmit = async(e)=>{
     e.preventDefault();
@@ -24,6 +24,19 @@ function Login() {
       setError(err.message);
     }
   }
+  const handlegooglesignin = async(e)=>{
+    e.preventDefault();
+    try{
+     await googlesignin();
+     console.log('user successfully created');
+     setError('');
+     navigate('/home');
+    }catch(err){
+      setError(err.message);
+    }
+  }
+
+
   return (
     <div className='main'>
      <div className='maincontainer'>
@@ -41,7 +54,7 @@ function Login() {
        </div>
        <button type="submit" class="btn btn-primary" onClick={handlesubmit}>Login</button>
        <h5 class="card-title">OR</h5>
-       <GoogleButton style={{width:"367px"}}/>
+       <GoogleButton style={{width:"367px"}} onClick={handlegooglesignin}/>
       </div>
     </div>
     </div>

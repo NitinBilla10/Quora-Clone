@@ -10,7 +10,7 @@
 }
 .main .maincontainer .card {
   text-align: center;
-  height: 450px;
+  min-height: 550px;
 }
 .main .maincontainer .card h5 {
   margin: 10px;

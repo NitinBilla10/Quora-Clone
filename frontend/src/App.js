@@ -7,7 +7,7 @@ import Quora from './components/quora';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import { UserAuthContextProvider } from './components/context/userAuthContext';
-import {ProtectedRoute} from './components/ProtectedRoute'
+import {default as ProtectedRoute} from './components/ProtectedRoute'
 
 function App() {
   

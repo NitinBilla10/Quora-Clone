@@ -2,18 +2,34 @@
 import React, { useState } from 'react'
 import './css/quoraheader.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useUserAuth } from './context/userAuthContext';
 
 
 
 
 function Quoraheader() {
- 
+  const {user} = useUserAuth();
   const[question,setquestion]=useState('');
   const[questionurl,setquestionurl]=useState('');
   const[updatequestionurl,Setupdatequestionurl]=useState('');
+  const[username,setUsername]=useState('');
+  const navigate = useNavigate();
+  const {logout} = useUserAuth();
+ console.log(user)
+  const handlesubmit = async(e)=>{
+    e.preventDefault();
+    try{
+     await logout(); 
+     navigate('/');
+     
+    }catch(err){
+      
+    }
+  }
   
-    
  const postquestion = async ()=>{
+ 
   if(question!==""){
     const config = {
       header:{
@@ -22,7 +38,8 @@ function Quoraheader() {
     }
     const body={
     questionName: question,
-    questionUrl: updatequestionurl
+    questionUrl: updatequestionurl,
+    username:user.email
     }
   await axios.post("/api/questions",body,config).then((res)=>{
     alert(res.data.message)
@@ -60,9 +77,7 @@ function Quoraheader() {
         <button className="btn btn-outline-success" type="submit">Search</button>
       </form>
       </div>
-      </div>
-    
-        
+      </div>  
       <div className='col-lg'>
       <div className='menu'>
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -100,9 +115,8 @@ function Quoraheader() {
         </li></div>
         <div className='avatar'>
         <li className="nav-item">
-          <a className="nav-link" href='/'><span class="material-symbols-outlined">
-          account_circle
-           </span></a>
+        <button type="button" class="btn btn-outline-primary" onClick={handlesubmit}> 
+         Log Out</button>
         </li></div>
       </ul>
       </div>

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const answerschema = new mongoose.Schema({
     answer: String,
+    username:String,
     questionId: {
         type:mongoose.Schema.Types.ObjectId,
         ref: "questions"

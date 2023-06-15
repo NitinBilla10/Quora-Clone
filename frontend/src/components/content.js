@@ -5,6 +5,7 @@ import './css/content.css'
 import axios from 'axios';
 import ReactTimeAgo from 'react-time-ago';
 import ReactHtmlparser from 'html-react-parser';
+import { useUserAuth } from './context/userAuthContext';
 
 
 function LastSeen({ date }) {
@@ -17,6 +18,7 @@ function LastSeen({ date }) {
 
 function Content({post}){
   const editorRef = useRef();
+  const {user}=useUserAuth();
   const [modal,setmodal] =useState(false);
   useEffect(()=>{if(modal===true){
     
@@ -37,6 +39,7 @@ function Content({post}){
       const body={
       answer: editorRef.current.getContent() ,
       questionId: postid,
+      username:user.email,
       createdAt:Date.now()
 
       }
@@ -61,7 +64,7 @@ const closemodal = ()=>{
         <div className='feed'>
         <div className='avatar'><p><span class="material-symbols-outlined">
          account_circle
-         </span> <strong>User Name</strong><br/>
+         </span> <strong>{post?.username}</strong><br/>
          <small><LastSeen date={post?.createdAt} locale="en-US" /></small></p></div>
          
          <div className='leftfeed'>
@@ -111,7 +114,7 @@ const closemodal = ()=>{
        <div className='answerfeed'>
        <p><span class="material-symbols-outlined">
          account_circle
-         </span>User_Name<br/><span><LastSeen date={_a?.createdAt} locale="en-US" /></span></p>
+         </span><strong>{_a.username}</strong><br/><span><LastSeen date={_a?.createdAt} locale="en-US" /></span></p>
          <div id='feedanswer'>{ReactHtmlparser(_a?.answer)}</div>
          </div></>))}
        
@@ -120,7 +123,7 @@ const closemodal = ()=>{
         <div className='modal_wrapper'>
         <div className='modal_container'>
           <div className='title' >
-            <h3>{post?._id}</h3>
+            <h3>{post?.questionName}</h3>
           </div>
           <div className="modal_content">
        <Editor
